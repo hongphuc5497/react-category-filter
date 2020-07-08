@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ProductList from './components/ProductList';
-import BtnCategories from './components/BtnCategories';
+import { ProductList, BtnCategories } from './components';
+import { PRODUCTS, PRODUCT_CATEGORIES } from './data';
 
 function App() {
   const [objProducts, setObjProducts] = useState({
@@ -9,21 +9,12 @@ function App() {
     productCategories: PRODUCT_CATEGORIES
   })
 
-  const setCategory = category => {
-    setObjProducts({
-      ...objProducts,
-      displayCategory: category
-    })
-  }
-  
-  console.log(PRODUCTS, PRODUCT_CATEGORIES);
-
   return (
     <div className="App">
       <div className="box flex-row">
         <div className="box flex-col">
           <h3>Filter by Category</h3>
-          {BtnCategories(objProducts.productCategories, setCategory)}
+          {BtnCategories(objProducts.productCategories, (category) => setObjProducts({ ...objProducts, displayCategory: category}))}
         </div>
 
         <div className="box flex-col">
@@ -36,19 +27,3 @@ function App() {
 }
 
 export default App;
-
-const PRODUCTS = [
-  { category: "entertainment", name: "Football" },
-  { category: "entertainment", name: "Baseball" },
-  { category: "entertainment", name: "Basketball" },
-  { category: "fashion", name: "iPod Touch" },
-  { category: "design", name: "iPhone 5" },
-  { category: "design", name: "Nexus 7" },
-  { category: "leisure", name: "Holiday" }
-];
-
-const selectedItems = (selected, index, array) => array.indexOf(selected) === index;
-const PRODUCT_CATEGORIES = PRODUCTS.map(product => product.category).filter(selectedItems);
-
-PRODUCT_CATEGORIES.push('all');
-PRODUCT_CATEGORIES.sort();
