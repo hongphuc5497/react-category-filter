@@ -7,14 +7,23 @@ function App() {
     displayCategory: 'all',
     products: PRODUCTS,
     productCategories: PRODUCT_CATEGORIES
-  }) 
+  })
+
+  const setCategory = category => {
+    setObjProducts({
+      ...objProducts,
+      displayCategory: category
+    })
+  }
+  
+  console.log(PRODUCTS, PRODUCT_CATEGORIES);
 
   return (
     <div className="App">
       <div className="box flex-row">
         <div className="box flex-col">
           <h3>Filter by Category</h3>
-          
+          {BtnCategories(objProducts.productCategories, setCategory)}
         </div>
 
         <div className="box flex-col">
@@ -41,4 +50,5 @@ const PRODUCTS = [
 const selectedItems = (selected, index, array) => array.indexOf(selected) === index;
 const PRODUCT_CATEGORIES = PRODUCTS.map(product => product.category).filter(selectedItems);
 
-PRODUCT_CATEGORIES.push('all').sort();
+PRODUCT_CATEGORIES.push('all');
+PRODUCT_CATEGORIES.sort();
